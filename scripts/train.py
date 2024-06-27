@@ -183,12 +183,12 @@ class TrainModel:
             (self.training_history, np.array([[epoch, epoch_loss, epoch_acc, val_epoch_loss, val_epoch_acc]]))
         )
         try:
-            np.savetxt(os.path.join(get_fsct_path("model"), "training_history.csv"), self.training_history)
+            np.savetxt(os.path.join(get_fsct_path("generated_model"), "training_history.csv"), self.training_history)
         except PermissionError:
             print("training_history not saved this epoch, please close training_history.csv to enable saving.")
             try:
                 np.savetxt(
-                    os.path.join(get_fsct_path("model"), "training_history_permission_error_backup.csv"),
+                    os.path.join(get_fsct_path("generated_model"), "training_history_permission_error_backup.csv"),
                     self.training_history,
                 )
             except PermissionError:
@@ -247,7 +247,7 @@ class TrainModel:
             print("Loading existing model...")
             try:
                 model.load_state_dict(
-                    torch.load(os.path.join(get_fsct_path("model"), self.parameters["model_filename"])),
+                    torch.load(os.path.join(get_fsct_path("generated_model"), self.parameters["model_filename"])),
                     strict=False,
                 )
 
@@ -255,11 +255,11 @@ class TrainModel:
                 print("File not found, creating new model...")
                 torch.save(
                     model.state_dict(),
-                    os.path.join(get_fsct_path("model"), self.parameters["model_filename"]),
+                    os.path.join(get_fsct_path("generated_model"), self.parameters["model_filename"]),
                 )
 
             try:
-                self.training_history = np.loadtxt(os.path.join(get_fsct_path("model"), "training_history.csv"))
+                self.training_history = np.loadtxt(os.path.join(get_fsct_path("generated_model"), "training_history.csv"))
                 print("Loaded training history successfully.")
             except OSError:
                 pass
@@ -356,7 +356,7 @@ class TrainModel:
                 print("=====================================================================")
             torch.save(
                 model.state_dict(),
-                os.path.join(get_fsct_path("model"), self.parameters["model_filename"]),
+                os.path.join(get_fsct_path("generated_model"), self.parameters["model_filename"]),
             )
 
 
