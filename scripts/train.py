@@ -379,7 +379,7 @@ if __name__ == "__main__":
         subsample=False,
         subsampling_min_spacing=0.025,
         num_cpu_cores_preprocessing=0,  # 0 Means use all available cores.
-        num_cpu_cores_deep_learning=1,  # Setting this higher can cause CUDA issues on Windows.
+        num_cpu_cores_deep_learning=0,  # Setting this higher can cause CUDA issues on Windows.
         train_batch_size=2,
         validation_batch_size=2,
         device="cuda",  # set to "cuda" or "cpu"
